@@ -1,0 +1,12 @@
+{
+    "name": "RestServiceindia",
+    "properties": {
+        "annotations": [],
+        "type": "RestService",
+        "typeProperties": {
+            "url": "https://restcountries.com/v3.1/name/india",
+            "enableServerCertificateValidation": true,
+            "authenticationType": "Anonymous"
+        }
+    }
+}

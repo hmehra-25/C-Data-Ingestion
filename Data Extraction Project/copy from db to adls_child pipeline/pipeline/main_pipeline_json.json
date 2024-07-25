@@ -1,0 +1,101 @@
+{
+    "name": "MainCustomerDataPipeline",
+    "properties": {
+        "activities": [
+            {
+                "name": "LookupCustomerRecordCount",
+                "type": "Lookup",
+                "policy": {
+                    "timeout": "7.00:00:00",
+                    "retry": 0,
+                    "retryIntervalInSeconds": 30,
+                    "secureOutput": false
+                },
+                "typeProperties": {
+                    "source": {
+                        "type": "SqlSource",
+                        "sqlReaderQuery": {
+                            "value": "SELECT COUNT(*) AS CustomerRecordCount FROM Customer",
+                            "type": "Expression"
+                        }
+                    },
+                    "dataset": {
+                        "referenceName": "CustomerSourceDataset",
+                        "type": "DatasetReference"
+                    }
+                }
+            },
+            {
+                "name": "CheckCustomerRecordCount",
+                "type": "IfCondition",
+                "dependsOn": [
+                    {
+                        "activity": "LookupCustomerRecordCount",
+                        "dependencyConditions": [
+                            "Succeeded"
+                        ]
+                    }
+                ],
+                "typeProperties": {
+                    "expression": {
+                        "value": "@greaterOrEquals(activity('LookupCustomerRecordCount').output.firstRow.CustomerRecordCount, 500)",
+                        "type": "Expression"
+                    },
+                    "ifTrueActivities": [
+                        {
+                            "name": "CopyCustomerDataToADLS",
+                            "type": "Copy",
+                            "dependsOn": [
+                                "CheckCustomerRecordCount"
+                            ],
+                            "typeProperties": {
+                                "source": {
+                                    "type": "SqlSource",
+                                    "sqlReaderQuery": {
+                                        "value": "SELECT * FROM YourCustomerTable",
+                                        "type": "Expression"
+                                    }
+                                },
+                                "sink": {
+                                    "type": "AzureDataLakeStoreSink",
+                                    "storeSettings": {
+                                        "linkedServiceName": {
+                                            "referenceName": "ADLSLinkedService",
+                                            "type": "LinkedServiceReference"
+                                        },
+                                        "folderPath": "main/root"
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "name": "ExecuteProductPipeline",
+                            "type": "ExecutePipeline",
+                            "dependsOn": [
+                                "CopyCustomerDataToADLS"
+                            ],
+                            "typeProperties": {
+                                "pipeline": {
+                                    "referenceName": "ChildProductPipeline",
+                                    "type": "PipelineReference"
+                                },
+                                "parameters": {
+                                    "CustomerRecordCount": {
+                                        "value": "@activity('LookupCustomerRecordCount').output.firstRow.CustomerRecordCount"
+                                    }
+                                }
+                            }
+                        }
+                    ],
+                    "ifFalseActivities": []
+                }
+            }
+        ],
+        "parameters": {
+            "CustomerRecordCount": {
+                "type": "Int32",
+                "defaultValue": 0
+            }
+        }
+    }
+}

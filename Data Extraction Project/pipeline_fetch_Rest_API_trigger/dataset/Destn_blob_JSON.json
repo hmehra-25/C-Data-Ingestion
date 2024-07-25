@@ -1,0 +1,19 @@
+{
+    "name": "Destn_blob_JSON",
+    "properties": {
+        "linkedServiceName": {
+            "referenceName": "Input Blob 2",
+            "type": "LinkedServiceReference"
+        },
+        "annotations": [],
+        "type": "Json",
+        "typeProperties": {
+            "location": {
+                "type": "AzureBlobStorageLocation",
+                "fileName": "output.txt",
+                "container": "input"
+            }
+        },
+        "schema": {}
+    }
+}

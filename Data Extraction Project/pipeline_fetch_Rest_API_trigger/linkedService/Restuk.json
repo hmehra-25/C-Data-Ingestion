@@ -1,0 +1,12 @@
+{
+    "name": "Restuk",
+    "properties": {
+        "annotations": [],
+        "type": "RestService",
+        "typeProperties": {
+            "url": "https://restcountries.com/v3.1/name/uk",
+            "enableServerCertificateValidation": true,
+            "authenticationType": "Anonymous"
+        }
+    }
+}

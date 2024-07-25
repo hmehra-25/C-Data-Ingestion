@@ -1,0 +1,16 @@
+{
+    "name": "AzureSqlDatabaseLinkedService",
+    "properties": {
+        "type": "AzureSqlDatabase",
+        "typeProperties": {
+            "connectionString": {
+                "type": "SecureString",
+                "value": "YourAzureSqlConnectionString"
+            }
+        },
+        "connectVia": {
+            "referenceName": null,
+            "type": "IntegrationRuntimeReference"
+        }
+    }
+}

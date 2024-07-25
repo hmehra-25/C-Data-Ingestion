@@ -1,0 +1,73 @@
+{
+    "name": "ChildProductPipeline",
+    "properties": {
+        "activities": [
+            {
+                "name": "LookupProductRecordCount",
+                "type": "Lookup",
+                "typeProperties": {
+                    "source": {
+                        "type": "SqlSource",
+                        "sqlReaderQuery": {
+                            "value": "SELECT COUNT(*) AS ProductRecordCount FROM Customer",
+                            "type": "Expression"
+                        }
+                    },
+                    "dataset": {
+                        "referenceName": "ProductSourceDataset",
+                        "type": "DatasetReference"
+                    }
+                }
+            },
+            {
+                "name": "CheckProductRecordCount",
+                "type": "IfCondition",
+                "dependsOn": [
+                    {
+                        "activity": "LookupProductRecordCount",
+                        "dependencyConditions": [
+                            "Succeeded"
+                        ]
+                    }
+                ],
+                "typeProperties": {
+                    "expression": {
+                        "value": "@greaterOrEquals(activity('LookupProductRecordCount').output.firstRow.ProductRecordCount, 600)",
+                        "type": "Expression"
+                    },
+                    "ifTrueActivities": [
+                        {
+                            "name": "CopyProductDataToADLS",
+                            "type": "Copy",
+                            "typeProperties": {
+                                "source": {
+                                    "type": "SqlSource",
+                                    "sqlReaderQuery": {
+                                        "value": "SELECT * FROM YourProductTable",
+                                        "type": "Expression"
+                                    }
+                                },
+                                "sink": {
+                                    "type": "AzureDataLakeStoreSink",
+                                    "storeSettings": {
+                                        "linkedServiceName": {
+                                            "referenceName": "ADLSLinkedService",
+                                            "type": "LinkedServiceReference"
+                                        },
+                                        "folderPath": "YourProductFolderPath"
+                                    }
+                                }
+                            }
+                        }
+                    ],
+                    "ifFalseActivities": []
+                }
+            }
+        ],
+        "parameters": {
+            "CustomerRecordCount": {
+                "type": "Int32"
+            }
+        }
+    }
+}

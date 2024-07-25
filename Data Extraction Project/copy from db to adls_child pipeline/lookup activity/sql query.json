@@ -1,0 +1,17 @@
+{
+    "name": "Customer",
+    "properties": {
+        "type": "SqlServerStoredProcedure",
+        "typeProperties": {
+            "storedProcedureName": "data",
+            "storedProcedureParameters": {
+                "Parameter1": {
+                    "value": {
+                        "type": "String",
+                        "value": "500"
+                    }
+                },
+                "Parameter2": {
+                    "value": {
+                        "type": "String",
+                        Contains DialogInterface

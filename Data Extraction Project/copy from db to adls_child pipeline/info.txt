@@ -1,0 +1,6 @@
+selected resource name:		pipeline_project2
+selected resource type:		pipeline
+factory name:			week6-task1
+factory location:		centralindia
+subscription id:		4eab5388-70b4-478a-a0b2-66646d0796c9
+time of download (UTC):		Sun, 22 Jul 2024 21:36:46 GMT

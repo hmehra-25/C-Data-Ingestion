@@ -1,0 +1,12 @@
+{
+    "name": "Restuk",
+    "properties": {
+        "linkedServiceName": {
+            "referenceName": "Restuk",
+            "type": "LinkedServiceReference"
+        },
+        "annotations": [],
+        "type": "RestResource",
+        "schema": []
+    }
+}

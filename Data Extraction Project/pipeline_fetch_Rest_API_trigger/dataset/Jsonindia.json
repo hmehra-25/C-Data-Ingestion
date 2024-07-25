@@ -1,0 +1,19 @@
+{
+    "name": "Jsonindia",
+    "properties": {
+        "linkedServiceName": {
+            "referenceName": "Input Blob 2",
+            "type": "LinkedServiceReference"
+        },
+        "annotations": [],
+        "type": "Json",
+        "typeProperties": {
+            "location": {
+                "type": "AzureBlobStorageLocation",
+                "fileName": "india",
+                "container": "input"
+            }
+        },
+        "schema": {}
+    }
+}

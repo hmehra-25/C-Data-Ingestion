@@ -1,0 +1,23 @@
+{
+    "now": "2024-07-21T23:36:46.822Z",
+    "perfNow": 2571257,
+    "diagnosticCorrelation": "cf25cef4-e639-4d8a-a7c5-1effedb0e991",
+    "source": "DownloadSupportFiles",
+    "environment": {
+        "productName": "adf",
+        "buildVersion": "1.0.070524.6",
+        "environmentType": 3,
+        "resourceName": "week6-task1",
+        "resourceRegion": "centralindia",
+        "resourceGroup": "grp1",
+        "subscriptionId": "4eab5388-70b4-478a-a0b2-66646d0796c9",
+        "sessionId": "rMILk4oKwCaEVI+l5TZR0z",
+        "operationId": "",
+        "gitType": "GitHub",
+        "loggingKey": "b4cfa717-f1af-4d61-a73a-5d08d4a9a1b7"
+    },
+    "additionalInfo": {
+        "selectedResource": "pipeline_project1",
+        "selectedResourceType": "pipeline"
+    }
+}
